@@ -10,13 +10,13 @@ from flask_ckeditor import CKEditor
 from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql12731513:ySW5S9CtJB@sql12.freesqldatabase.com/sql12731513'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root: @localhost/flask'
-app.config['SECRET_KEY'] = 'gfhkjl;.l,km vccvjkl/hgvjbk'
+app.config['SECRET_KEY'] = ''
 db = SQLAlchemy(app)
 app.config['MYSQL_HOST'] = "localhost"
-app.config['MYSQL_USER'] = "sql12731513"
-app.config['MYSQL_PASSWORD'] = "ySW5S9CtJB"
+app.config['MYSQL_USER'] = ""
+app.config['MYSQL_PASSWORD'] = ""
 app.config['MYSQL_DB'] = "flask"
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 ckeditor = CKEditor(app)
