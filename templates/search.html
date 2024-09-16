@@ -1,0 +1,16 @@
+{% extends 'nav.html' %}
+{% block nav %}
+    <script src="/static/js/view_more.js"></script>
+    <div class="container text-center">
+        <p>
+            <input type="text" id="filter" placeholder="search" onkeyup="log();">
+            <!-- <button class='btn btn-outline-dark' onclick="go();">search</button> -->
+        </p>
+        <br>
+        <span style="color: gray;" id="load"></span>
+    </div>
+    <!-- <h3 id="head"></h3> -->
+    <div id="main-c">
+        
+    </div>
+{% endblock %}

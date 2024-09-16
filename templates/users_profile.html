@@ -1,0 +1,92 @@
+{% extends 'nav.html' %}
+{% block nav %}
+
+    <script src="/static/js/users_ld.js"></script>
+    <div class="container" style="width:60%">
+        <div class="container" style="width: 100%;">
+            <p class="row">
+                <img class="" src="/static/profile_imgs/{{ prof_img }}" alt="" style="height:26%;width:26%;border-radius: 50%;border:2.5px black dotted;padding:.50%">
+                <img src="/static/other_imgs/l.jpg" alt="" style="margin-left:3%;width:2%;height:10%">
+            </p>
+            <div class="container float-right" style="width:70%;padding-left: 10%;margin-top:-30%">
+                <div class="row">
+                    <h3>{{ uid }}</h3>
+                </div>
+                <!-- <br> -->
+                {% if uid != session['uid'] %}
+                    <div class="row">
+                        <button class="btn btn-info" style="width: 100%;">follow</button>
+                    </div>
+                {% endif %}
+                <br>
+                <div class="row">
+                    <h4>{{ email }}</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <h5 class="col-md-4">{{ total_posts }} Posts</h5>
+                    <p><h5 class="btn btn-default" style="border: .5px black solid;">followers {{ followers }}</h5>                       <h5 class="btn btn-default" style="border: .5px black solid;">following {{ following }}</h5></p>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <br><br>
+        <div class="container">
+            <h2>{{ uid }}`s  Collections</h2>
+            <hr style="border:1px black solid">
+            <div class="row">
+                {% for album in albums %}
+                    <a class="col-md-3" style="margin-top: 5%;">
+                        <div>
+                            <img src="/static/album/{{ album }}" alt="" style="height: 100%;width: 100%;">
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <br>
+        <h2>Posts</h2>
+        <hr>
+        <div class="container shadow-lg" style="width: 57%;" id="main">
+            {% if posts %}
+                {% for post in posts %}
+                    <br>
+                    <div class="container shadow-lg" style="height: 100%;">
+                        <br>
+                        <p>
+                            <img src="/static/profile_imgs/{{ prof_img }}" alt="" style="height:11%;width:11%;border-radius: 50%;">
+                            <h3 style="margin-left: 18%;margin-top:-11%;margin-bottom: 5%;">{{ uid }}</h3>
+                        </p>
+                        <hr>
+                        <h2>{{ post.title }}</h2>
+                        {% if post.img %}
+                            <div class="text-center">
+                                <img src="/static/post_imgs/{{ post.img }}" alt="" style="height: 40%;width:90%;">
+                            </div>
+                        {% endif %}
+                        <br>
+                        <h5 class="text-center">{{ post.body }}</h5>
+                        <h6>created on {{ post.date }}</h6>
+                        <p> 
+                            <h5 class="btn btn-info float-left">{{ post.likes }} Likes</h5>
+                            <!-- <button class="btn btn-default float-right" style="margin-left: 65%;margin-top:-14%;"><img src="/static/other_imgs/like.png" alt="" style="height:30%;width:30%"></button> -->
+                            {% if post.like_ok %}
+                                <button name="{{ post.id }}" onclick="goto_u_like('{{ post.id }}')" class="btn btn-default float-right" style="margin-left: 65%;margin-top:-14%;"><img src="/static/other_imgs/love.png" alt="" style="height:40%;width:40%"></button>
+                            {% else %}
+                                <button name="{{ post.id }}" onclick="goto_u_dislike('{{ post.id }}')" class="btn btn-default float-right" style="margin-left: 65%;margin-top:-14%;"><img src="/static/other_imgs/unlove.png" alt="" style="height:40%;width:40%"></button>
+                            {% endif %}
+                        </p>              
+                        <br><br>
+                        <a href="/dashboard/comment/{{ post.id }}">add a comment</a>
+                        <br><br>
+                    </div>
+                    <br>
+                {% endfor %}
+                <button id="view-m" class="float-left btn btn-info" onclick="users_get();">view More</button>
+            {% else %}
+                <h3>no Posts</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

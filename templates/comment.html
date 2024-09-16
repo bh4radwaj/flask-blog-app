@@ -1,0 +1,73 @@
+{% extends 'nav.html' %}
+{% block nav %}
+
+    <div class="container">
+
+        <div class="container" style="width: 57%;" id="main">
+                    <br>
+                    <div class="container" style="height: 100%;">
+                        <br>
+                        <p>
+                            <img src="/static/profile_imgs/{{ prof_img }}" alt="" style="height:11%;width:11%;border-radius: 50%;">
+                            <h3 style="margin-left: 18%;margin-top:-11%;margin-bottom: 5%;">{{ uid }}</h3>
+                        </p>
+                        <hr>
+                        <h2>{{ post.title }}</h2>
+                        {% if post.img %}
+                            <div class="text-center">
+                                <img src="/static/post_imgs/{{ post.img }}" alt="" style="height: 50%;width:100%;">
+                            </div>
+                        {% endif %}
+                        <br>
+                        <h3 class="text-center">{{ post.body | safe }}</h3>
+                        <br>
+                        <h5>created on {{ post.date }}</h5>
+                    </div>
+                    <br>
+        </div>
+    <!-- <nav class="container navbar navbar-expand-md navbar-dark fixed-top bg-light shadow-lg"> -->
+
+        <form action="" enctype="multipart/form-data" method="POST" class="container navbar navbar-bottom fixed-bottom" style="padding-left:20%">
+            <div class="form-group">
+                {{ form.body(class_="form-control",placeholder="Type your comment",style="height:100px;width:150%;border-radius:15px") }}
+            </div>
+            {{ form.submit(value="post",class_="btn btn-info float-right") }}
+        </form>
+        <br>
+        {% for comment in comments %}
+            {% if session.uid == comment.uid %}
+                    <div class="container shadow-lg" style="border-radius:15px;width:60%;padding-top:1%" id="{{ comment.id }}">
+                    <a href="/dashboard/profiles/{{ comment.uid }}" style="text-decoration:none">
+                        <img src="/static/profile_imgs/{{ comment.prof_img }}" alt="" class="float-left" style="height:13%;width:13%;border-radius: 50%;padding:2px;border:1px red dotted">
+                    </a>
+                        <div>
+                            <h6 style="margin-left:20%;">{{ comment.uid }}</h6>
+                            <h4 style="margin-left:20%;"><p>{{ comment.comment }}</p></h4>
+                            <button type="submit" onclick="comm_delete('{{ comment.id }}');" class="btn btn-default float-right" style="margin-top: -10%;padding:1%;padding-top:-2%">delete</button>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                </a>
+            {% else %}
+                <!-- <a href="/dashboard/profiles/{{ comment.uid }}" style="text-decoration:none"> -->
+                    <div class="container shadow-lg" style="border-radius:15px;width:60%;padding-top:1%">
+                        <!-- <img src="/static/profile_imgs/{{ comment.prof_img }}" alt="" class="float-left" style="height:13%;width:13%;border-radius: 50%;padding:2px;border:1px red dotted"> -->
+                        <a href="/dashboard/profiles/{{ comment.uid }}" style="text-decoration:none">
+                            <img src="/static/profile_imgs/{{ comment.prof_img }}" alt="" class="float-left" style="height:13%;width:13%;border-radius: 50%;padding:2px;border:1px red dotted">
+                        </a>
+                        <div>
+                            <h6 style="margin-left:20%;">{{ comment.uid }}</h6>
+                            <h4 style="margin-left:20%;"><p>{{ comment.comment }}</p></h4>
+                        </div>
+                        <br>
+                    </div>
+                    <br>
+                <!-- </a> -->
+            {% endif %}
+        {% endfor %}
+        <br><br><br><br><br><br>
+    </div>
+
+
+{% endblock %}

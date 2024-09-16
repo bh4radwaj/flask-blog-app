@@ -1,0 +1,24 @@
+{% extends 'nav.html' %}
+{% block nav %}
+
+    <div class="container shadow-lg" style="width:70%;padding: 2%;border-radius: 10px;">
+        <p>
+            <img src="/static/other_imgs/addpost.jpg" alt="" style="height: 6%;width:6%;border-radius: 50%;" class="float-right float-top">
+            <h2>Add A New Post</h2>
+        </p>
+        <hr>
+        <form action="" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                {{ form.title(class_="form-control",placeholder="Enter Title For The Post") }}
+            </div>
+            <div class="form-group">
+                {{ form.body(class_="form-control",placeholder="Type Content",style="height:100px") }}
+            </div>
+            <input type="file" name="img">
+            {{ form.submit(value="post",class_="btn btn-info float-right") }}
+        </form>
+    </div>
+    <script>
+        CKEDITOR.replace('body')
+    </script>
+{% endblock %}
